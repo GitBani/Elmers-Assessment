@@ -1,5 +1,12 @@
 # How to Run and Test Project
-To run, simply execute the `mvnw` (or `mvnw.cmd` if you're on windows) executable.
+To run, simply execute the `mvnw` (or `mvnw.cmd` if you're on windows) executable like so:
+```
+./mvnw spring-boot:run
+```
+or
+```
+./mvnw.cmd spring-boot:run
+```
 
 To test, you could send requests to the api using `curl` or `httpie` as so:
 ```
