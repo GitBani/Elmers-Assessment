@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class NumberToWordController {
 
     private final NumberValidator numberValidator;
+    private final NumberToWordConverter numberToWordConverter;
 
-    public NumberToWordController(NumberValidator numberValidator) {
+    public NumberToWordController(NumberValidator numberValidator, NumberToWordConverter numberToWordConverter) {
         this.numberValidator = numberValidator;
+        this.numberToWordConverter = numberToWordConverter;
     }
 
     @PostMapping("")
@@ -27,6 +29,6 @@ public class NumberToWordController {
 
         return errors.hasErrors() ?
                 new ResponseEntity<>(errors.getAllErrors().get(0).getDefaultMessage(), HttpStatus.BAD_REQUEST) :
-                new ResponseEntity<>(number, HttpStatus.OK);
+                new ResponseEntity<>(numberToWordConverter.convert(number), HttpStatus.OK);
     }
 }

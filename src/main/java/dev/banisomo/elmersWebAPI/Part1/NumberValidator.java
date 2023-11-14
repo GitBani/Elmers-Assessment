@@ -7,6 +7,8 @@ import org.springframework.validation.Validator;
 @Component
 public class NumberValidator implements Validator {
 
+    String acceptedNum = null;
+
     @Override
     public boolean supports(Class<?> clazz) {
         return String.class.isAssignableFrom(clazz);
@@ -22,9 +24,21 @@ public class NumberValidator implements Validator {
         String noSpaces = number.replaceAll(" ", "");
         String noCommas = number.replaceAll(",", "");
 
-        if (!isNumber(noSpaces) && !isNumber(noCommas)) {
-            errors.rejectValue("input", "invalid.number", "Invalid number");
+        // If the input is valid, set the field to that number
+        // I do this because I want to keep the separate-removed form of the input number
+        if (isNumber(noSpaces)) {
+            this.acceptedNum = noSpaces;
+            return;
         }
+
+        if (isNumber(noCommas)) {
+            this.acceptedNum = noCommas;
+            return;
+        }
+
+        // Otherwise, it is an invalid number
+        errors.rejectValue("input", "invalid.number", "Invalid number");
+
     }
 
     private boolean isNumber(String number) {
