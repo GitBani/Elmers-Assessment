@@ -1,2 +1,5 @@
-package dev.banisomo.elmersWebAPI.Part2;public class CoffeePropertiesParser {
+package dev.banisomo.elmersWebAPI.Part2;
+
+public class CoffeePropertiesSetter {
+
 }
