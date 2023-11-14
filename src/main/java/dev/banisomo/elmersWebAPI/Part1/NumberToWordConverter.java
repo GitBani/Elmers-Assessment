@@ -58,11 +58,6 @@ public class NumberToWordConverter {
      * suffix, we can easily convert the number into its word.
      */
     public String convert(String number) {
-        // Remove separators from number (only one of these calls does the work,
-        // since we validated this string beforehand
-        number = number.replaceAll(",", "");
-        number = number.replaceAll(" ", "");
-
         // Number as an integer to solve cases of 0
         // Issues arose from inputs such as 000
         int numAsInt = Integer.parseInt(number);
@@ -157,6 +152,11 @@ public class NumberToWordConverter {
             numberAsWord.append(teens.get(c));
 
             // Add section suffix and exit
+            // Hate to repeat myself here since this is at the bottom of the function
+            // however, I could not find a way to avoid this
+            // Two ideas were: wrap the c = number.charAt(i) stuff in a 1-iteration for loop and break here
+            //                 or use a goto statement (not in Java)
+            // I opted to just repeat myself
             if(section > 1)
                 numberAsWord.append(sectionSuffix.get(section));
 

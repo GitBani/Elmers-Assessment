@@ -1,13 +1,15 @@
 package dev.banisomo.elmersWebAPI.Part1;
 
+import lombok.Getter;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+@Getter
 @Component
 public class NumberValidator implements Validator {
 
-    String acceptedNum = null;
+    private String acceptedNum = null;
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -25,7 +27,7 @@ public class NumberValidator implements Validator {
         String noCommas = number.replaceAll(",", "");
 
         // If the input is valid, set the field to that number
-        // I do this because I want to keep the separate-removed form of the input number
+        // I do this because I want to keep the separate-removed form of the input number for the converter
         if (isNumber(noSpaces)) {
             this.acceptedNum = noSpaces;
             return;
@@ -49,4 +51,5 @@ public class NumberValidator implements Validator {
             return false;
         }
     }
+
 }

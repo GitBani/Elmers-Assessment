@@ -27,8 +27,13 @@ public class NumberToWordController {
         String number = input.getInput();
         numberValidator.validate(number, errors);
 
-        return errors.hasErrors() ?
-                new ResponseEntity<>(errors.getAllErrors().get(0).getDefaultMessage(), HttpStatus.BAD_REQUEST) :
-                new ResponseEntity<>(numberToWordConverter.convert(number), HttpStatus.OK);
+        if (errors.hasErrors())
+            return new ResponseEntity<>(errors.getAllErrors().get(0).getDefaultMessage(), HttpStatus.BAD_REQUEST);
+
+        return new ResponseEntity<>(
+                // Since input was valid, validator saved the value number with the separators (commas or spaces) removed
+                numberToWordConverter.convert(numberValidator.getAcceptedNum()),
+                HttpStatus.OK
+        );
     }
 }
